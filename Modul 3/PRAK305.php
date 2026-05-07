@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>PRAK302</title>
+    <title>PRAK305</title>
     <style>
     </style>
 </head>
@@ -25,7 +25,6 @@
         echo "<h2>Output:</h2>";
         for ($i = 0; $i < $string_length; $i++) {
             for ($j = 0; $j < $string_length; $j++) {
-                $uppercase_index = null;
                 if ($j == 0) {
                     $result .= strtoupper($value[$i]);
                     continue;
