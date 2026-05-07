@@ -24,9 +24,11 @@
     if (isset($_POST['print'])) {
         $num_joined = $_POST['value'];
 
-        for ($i = 0; $i < $num_joined; $i++) {
+        $i = 0;
+        while ($i < $num_joined) {
             $num_class = ($i + 1) % 2 == 0 ? "even" : "odd";
             echo "<h2 class=$num_class>Peserta ke-" . $i + 1 . "</h2>";
+            $i++;
         }
     }
     ?>
