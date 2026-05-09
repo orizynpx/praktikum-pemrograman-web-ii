@@ -19,10 +19,10 @@
         $string_length = strlen($value);
         $result = "";
 
-        echo "<h2>Input:</h2>";
+        echo "<h3>Input:</h3>";
         echo $value;
 
-        echo "<h2>Output:</h2>";
+        echo "<h3>Output:</h3>";
         for ($i = 0; $i < $string_length; $i++) {
             for ($j = 0; $j < $string_length; $j++) {
                 if ($j == 0) {
