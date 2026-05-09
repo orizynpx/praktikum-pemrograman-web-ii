@@ -28,6 +28,7 @@ if (isset($_POST['subtract'])) {
     </form>
     <?php else: ?>
     <p>Jumlah bintang <?= $num_of_stars ?></p>
+    <br><br>
     <?php
     for ($i = 0; $i < $num_of_stars; $i++) {
         echo '<img src="star.png" class="star">';
