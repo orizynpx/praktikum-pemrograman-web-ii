@@ -44,8 +44,6 @@
             echo "<br>";
             $i++;
         }
-
-        //use <span width="30">
     }
     ?>
 </body>
