@@ -73,7 +73,7 @@
         return $char;
     }
 
-    $final_table = unserialize(serialize($init_table));
+    $final_table = $init_table;
 
     foreach ($final_table as $id => $student) {
         $final_grade = calculate_final_grade($student["Nilai UTS"], $student["Nilai UAS"]);
