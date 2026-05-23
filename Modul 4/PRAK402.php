@@ -7,13 +7,13 @@
     table {
         border-collapse: collapse;
         table-layout: fixed;
-        width: 40rem;
+        width: 36rem;
     }
 
     th,
     td {
         border: 1px solid black;
-        padding: 0.25rem 0.5rem 0.75rem 0.5rem;
+        padding: 0rem 0.5rem 0.75rem 0.5rem;
         text-align: left;
     }
 
