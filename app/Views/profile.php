@@ -5,44 +5,86 @@ Profil
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
-<h1 class="text-xl font-medium">Profil</h1>
-
-<div class="max-w-md flex items-center">
-    <div
-        class="max-w-md w-full bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden transform transition-all duration-300 hover:shadow-md">
-        <div
-            class="flex flex-col items-center pt-8 pb-6 px-6 border-b border-slate-50 bg-gradient-to-b from-slate-50/50 to-white">
-            <div class="relative">
-                <img class="w-24 h-24 rounded-full border-4 border-white shadow-sm object-cover"
-                    src="<?= $profile['picture'] ?>" alt="Profile Picture">
+<div class="w-full max-w-4xl py-4">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
+        <div class="md:col-span-5 flex flex-col space-y-6">
+            <div class="w-full">
+                <img class="w-full aspect-square object-cover rounded-2xl bg-slate-900 shadow-md"
+                    src="<?= base_url($profile['picture']) ?>" alt="Foto Profil">
             </div>
-            <h1 class="mt-4 text-xl font-bold text-slate-950 text-center tracking-tight"><?= $profile['name'] ?>
-            </h1>
-            <p class="text-sm font-medium text-indigo-600 mt-1"><?= $profile['department'] ?></p>
-            <span
-                class="mt-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-600 border border-slate-200/60">
-                <?= $profile['id'] ?>
-            </span>
+
+            <div class="space-y-3">
+                <h1 class="text-4xl font-bold text-slate-100 tracking-tight leading-tight">
+                    <?= $profile['name'] ?>
+                </h1>
+                <p class="text-lg font-medium text-lime-200 tracking-wide font-mono">
+                    <?= $profile['id'] ?>
+                </p>
+                <p class="text-lg text-slate-400">
+                    <?= $profile['department'] ?>
+                </p>
+
+                <div class="pt-6 space-y-2">
+                    <p class="font-semibold text-slate-500 text-xl">Organisasi</p>
+                    <div class="p-4 bg-slate-900 rounded-xl">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-1.5 h-1.5 rounded-full bg-lime-200"></span>
+                            <h4 class="text-lg font-semibold text-slate-200"><?= $profile['organization'] ?></h4>
+                        </div>
+                        <p class="text-sm text-slate-400 mt-1.5 pl-3.5">
+                            <?= $profile['position'] ?>
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="p-6 space-y-5">
-            <div>
-                <h2 class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Skills</h2>
-                <div class="flex flex-wrap gap-1.5">
+        <div class="md:col-span-7 flex flex-col space-y-8">
+            <div class="space-y-3">
+                <h3 class="font-semibold text-slate-500 text-xl">Keahlian Utama</h3>
+                <div class="flex flex-wrap gap-2">
+                    <?php foreach (array_map('trim', explode(',', $profile['skills'])) as $skill): ?>
                     <span
-                        class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-indigo-50 text-indigo-700 border border-indigo-100">
-                        <?= $profile['skills'] ?>
+                        class="inline-flex items-center px-3 py-1.5 rounded-lg font-medium bg-slate-900 text-lime-200">
+                        <?= $skill ?>
                     </span>
+                    <?php endforeach; ?>
                 </div>
             </div>
 
-            <div>
-                <h2 class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Hobbies</h2>
-                <div class="flex flex-wrap gap-1.5">
+            <div class="space-y-3">
+                <h3 class="font-semibold text-slate-500 text-xl">Hobi & Kegiatan</h3>
+                <div class="flex flex-wrap gap-2">
+                    <?php foreach (array_map('trim', explode(',', $profile['hobbies'])) as $hobby): ?>
                     <span
-                        class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-slate-100 text-slate-700 border border-slate-200/40">
-                        <?= $profile['hobbies'] ?>
+                        class="inline-flex items-center px-3 py-1.5 rounded-lg font-medium bg-slate-900 text-slate-300">
+                        <?= $hobby ?>
                     </span>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <h3 class="font-semibold text-slate-500 text-xl">Karya Game</h3>
+                <div class="grid grid-cols-1 gap-4">
+                    <?php 
+                    $titles = array_map('trim', explode(',', $profile['games']['titles']));
+                    $roles = array_map('trim', explode(',', $profile['games']['roles']));
+                    ?>
+                    <?php foreach ($titles as $index => $game): ?>
+                    <div class="p-5 bg-slate-900 rounded-xl">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-1.5 h-1.5 rounded-full bg-lime-200"></span>
+                            <h4 class="text-lg font-semibold text-slate-200"><?= $game ?></h4>
+                        </div>
+
+                        <?php if (isset($roles[$index]) && !empty($roles[$index])): ?>
+                        <p class="text-sm text-slate-400 mt-1.5 pl-3.5">
+                            <?= $roles[$index] ?>
+                        </p>
+                        <?php endif; ?>
+                    </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </div>
