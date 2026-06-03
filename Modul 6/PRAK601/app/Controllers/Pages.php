@@ -18,10 +18,6 @@ class Pages extends BaseController
         $data['profile'] = $this->profileModel->getProfileInfo();
         return view('home', $data);
     }
-
-    public function home() {
-        return redirect()->to('/');
-    }
     
     public function profile(): string
     {
