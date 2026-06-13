@@ -26,7 +26,7 @@ class AuthFilter implements FilterInterface
     public function before(RequestInterface $request, $arguments = null)
     {
         if (!session()->get('logged_in')) {
-            session()->setFlashdata('error', 'Anda harus login terlebih dahulu.');
+            session()->setFlashdata('error', 'Login terlebih dahulu!');
             return redirect()->to('/login');
         }
     }
