@@ -4,58 +4,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= esc($title) ?></title>
+    <title>
+        <?= esc($title) ?>
+    </title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="min-h-screen bg-gray-100 flex items-center justify-center">
+<body class="min-h-screen bg-gray-100">
 
-    <div class="bg-white w-full max-w-md rounded-2xl shadow-md p-8">
+    <!-- Navbar -->
+    <nav class="bg-indigo-600 text-white px-6 py-4 flex items-center justify-between shadow">
+        <span class="font-semibold text-lg tracking-wide">Manajemen Buku</span>
+        <div class="flex items-center gap-4 text-sm">
+            <span class="opacity-80">Halo, <strong>
+                    <?= esc(session()->get('username')) ?>
+                </strong></span>
+            <a href="<?= base_url('/logout') ?>"
+                class="bg-white text-indigo-600 font-medium px-4 py-1.5 rounded-lg hover:bg-indigo-50 transition">
+                Logout
+            </a>
+        </div>
+    </nav>
 
-        <h1 class="text-2xl font-semibold text-gray-800 mb-6 text-center">Login</h1>
+    <div class="max-w-2xl mx-auto px-4 py-8">
 
-        <?php if (!empty($error)): ?>
-            <div class="mb-4 px-4 py-3 bg-red-50 border border-red-300 text-red-700 rounded-lg text-sm">
-                <?= esc($error) ?>
-            </div>
-        <?php endif; ?>
+        <!-- Breadcrumb -->
+        <nav class="text-sm text-gray-500 mb-5 flex items-center gap-1.5">
+            <a href="<?= base_url('/buku') ?>" class="hover:text-indigo-600 transition">Daftar Buku</a>
+            <span>/</span>
+            <span class="text-gray-800">Tambah Buku</span>
+        </nav>
 
-        <?php if (!empty($success)): ?>
-            <div class="mb-4 px-4 py-3 bg-green-50 border border-green-300 text-green-700 rounded-lg text-sm">
-                <?= esc($success) ?>
-            </div>
-        <?php endif; ?>
+        <div class="bg-white rounded-xl shadow p-6">
+            <h1 class="text-lg font-semibold text-gray-800 mb-6">Tambah Buku Baru</h1>
 
-        <form action="<?= base_url('/login') ?>" method="post" novalidate>
-            <?= csrf_field() ?>
+            <form action="<?= base_url('/buku/store') ?>" method="post" novalidate>
+                <?= csrf_field() ?>
 
-            <div class="mb-4">
-                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                <input type="email" id="email" name="email" value="<?= esc($old_email ?? old('email')) ?>"
-                    placeholder="contoh@email.com" class="w-full px-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400
-                 <?= ($validation->hasError('email')) ? 'border-red-400 bg-red-50' : 'border-gray-300' ?>">
-                <?php if ($validation->hasError('email')): ?>
-                    <p class="mt-1 text-xs text-red-600"><?= $validation->getError('email') ?></p>
-                <?php endif; ?>
-            </div>
+                <!-- Judul -->
+                <div class="mb-4">
+                    <label for="judul" class="block text-sm font-medium text-gray-700 mb-1">
+                        Judul <span class="text-red-500">*</span>
+                    </label>
+                    <input type="text" id="judul" name="judul" value="<?= old('judul') ?>"
+                        placeholder="Masukkan judul buku" class="w-full px-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400
+                   <?= $validation->hasError('judul') ? 'border-red-400 bg-red-50' : 'border-gray-300' ?>">
+                    <?php if ($validation->hasError('judul')): ?>
+                        <p class="mt-1 text-xs text-red-600">
+                            <?= $validation->getError('judul') ?>
+                        </p>
+                    <?php endif; ?>
+                </div>
 
-            <div class="mb-6">
-                <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-                <input type="password" id="password" name="password" placeholder="Minimal 6 karakter" class="w-full px-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400
-                 <?= ($validation->hasError('password')) ? 'border-red-400 bg-red-50' : 'border-gray-300' ?>">
-                <?php if ($validation->hasError('password')): ?>
-                    <p class="mt-1 text-xs text-red-600"><?= $validation->getError('password') ?></p>
-                <?php endif; ?>
-            </div>
+                <!-- Penulis -->
+                <div class="mb-4">
+                    <label for="penulis" class="block text-sm font-medium text-gray-700 mb-1">
+                        Penulis <span class="text-red-500">*</span>
+                    </label>
+                    <input type="text" id="penulis" name="penulis" value="<?= old('penulis') ?>"
+                        placeholder="Masukkan nama penulis" class="w-full px-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400
+                   <?= $validation->hasError('penulis') ? 'border-red-400 bg-red-50' : 'border-gray-300' ?>">
+                    <?php if ($validation->hasError('penulis')): ?>
+                        <p class="mt-1 text-xs text-red-600">
+                            <?= $validation->getError('penulis') ?>
+                        </p>
+                    <?php endif; ?>
+                </div>
 
-            <button type="submit"
-                class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200">
-                Masuk
-            </button>
-        </form>
+                <!-- Penerbit -->
+                <div class="mb-4">
+                    <label for="penerbit" class="block text-sm font-medium text-gray-700 mb-1">
+                        Penerbit <span class="text-red-500">*</span>
+                    </label>
+                    <input type="text" id="penerbit" name="penerbit" value="<?= old('penerbit') ?>"
+                        placeholder="Masukkan nama penerbit" class="w-full px-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400
+                   <?= $validation->hasError('penerbit') ? 'border-red-400 bg-red-50' : 'border-gray-300' ?>">
+                    <?php if ($validation->hasError('penerbit')): ?>
+                        <p class="mt-1 text-xs text-red-600">
+                            <?= $validation->getError('penerbit') ?>
+                        </p>
+                    <?php endif; ?>
+                </div>
 
+                <!-- Tahun Terbit -->
+                <div class="mb-6">
+                    <label for="tahun_terbit" class="block text-sm font-medium text-gray-700 mb-1">
+                        Tahun Terbit <span class="text-red-500">*</span>
+                    </label>
+                    <input type="number" id="tahun_terbit" name="tahun_terbit" value="<?= old('tahun_terbit') ?>"
+                        placeholder="Contoh: 2020" min="1801" max="2023" class="w-full px-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400
+                   <?= $validation->hasError('tahun_terbit') ? 'border-red-400 bg-red-50' : 'border-gray-300' ?>">
+                    <?php if ($validation->hasError('tahun_terbit')): ?>
+                        <p class="mt-1 text-xs text-red-600">
+                            <?= $validation->getError('tahun_terbit') ?>
+                        </p>
+                    <?php else: ?>
+                        <p class="mt-1 text-xs text-gray-400">Masukkan tahun antara 1801 hingga 2023</p>
+                    <?php endif; ?>
+                </div>
+
+                <!-- Tombol -->
+                <div class="flex items-center gap-3">
+                    <button type="submit"
+                        class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium px-6 py-2 rounded-lg transition">
+                        Simpan
+                    </button>
+                    <a href="<?= base_url('/buku') ?>"
+                        class="text-sm text-gray-500 hover:text-gray-700 px-4 py-2 rounded-lg border border-gray-200 hover:border-gray-300 transition">
+                        Batal
+                    </a>
+                </div>
+
+            </form>
+        </div>
     </div>
-
 </body>
 
 </html>
