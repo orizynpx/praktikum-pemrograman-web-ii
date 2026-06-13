@@ -17,14 +17,6 @@ class BukuController extends BaseController
         helper(['form', 'url']);
     }
 
-    /**
-     * Validate an incoming id parameter.
-     */
-    private function isValidId($id): bool
-    {
-        return ! empty($id) && is_numeric($id) && (int) $id > 0;
-    }
-
     public function index()
     {
         $data = [
@@ -109,8 +101,7 @@ class BukuController extends BaseController
 
     public function edit($id = null)
     {
-
-        if (! $this->isValidId($id)) {
+        if (empty($id) || !is_numeric($id) || (int) $id <= 0) {
             $this->session->setFlashdata('error', 'Invalid book id.');
             return redirect()->to('/buku');
         }
@@ -133,7 +124,7 @@ class BukuController extends BaseController
 
     public function update($id = null)
     {
-        if (! $this->isValidId($id)) {
+        if (empty($id) || !is_numeric($id) || (int) $id <= 0) {
             $this->session->setFlashdata('error', 'Invalid book id.');
             return redirect()->to('/buku');
         }
@@ -209,7 +200,7 @@ class BukuController extends BaseController
 
     public function delete($id = null)
     {
-        if (! $this->isValidId($id)) {
+        if (empty($id) || !is_numeric($id) || (int) $id <= 0) {
             $this->session->setFlashdata('error', 'Invalid book id.');
             return redirect()->to('/buku');
         }
