@@ -11,7 +11,9 @@ class Buku extends Migration
         $this->forge->addField([
            'id' => [
             'type' => 'BIGINT',
-            'constraint' => 5,
+            'constraint' => 20,
+            'unsigned' => true,
+            'auto_increment' => true,
            ],
            'judul' => [
             'type' => 'VARCHAR',
